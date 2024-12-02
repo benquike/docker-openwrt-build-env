@@ -21,7 +21,7 @@ A smaller container based on Alpine Linux is available in the alpine branch. But
 ```shell
 git clone https://github.com/mwarning/docker-openwrt-builder.git
 cd docker-openwrt-builder
-docker build -t openwrt_builder .
+docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)  --build-arg USER=$(whoami) -t openwrt_builder .
 ```
 
 Now the docker image is available. These steps only need to be done once.
@@ -54,7 +54,7 @@ Create a sparse disk image (to limit space usage):
 ```zsh
 mkdir ~/Documents/openwrt
 cd ~/Documents/openwrt
-hdiutil create -size 64g -fs "Case-sensitive HFS+" -type SPARSEBUNDLE -volname openwrt-dev-env openwrt-dev-env.dmg 
+hdiutil create -size 64g -fs "Case-sensitive HFS+" -type SPARSEBUNDLE -volname openwrt-dev-env openwrt-dev-env.dmg
 hdiutil attach openwrt-dev-env.dmg
 ```
 
@@ -85,7 +85,7 @@ cd openwrt
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 make menuconfig
-make -j4 # adapt to the number of cores you want to use 
+make -j4 # adapt to the number of cores you want to use
 ```
 
 After the build, the images will be inside `/home/user/openwrt-fs/openwrt/bin/target/` in the container, **inside the .img file**. To export them to your Mac you need to copy/move them in `/home/user` then you'll be able to access them from outside the container, in `/Volumes/openwrt-dev-env/`
