@@ -22,6 +22,7 @@ A smaller container based on Alpine Linux is available in the alpine branch. But
 git clone https://github.com/mwarning/docker-openwrt-builder.git
 cd docker-openwrt-builder
 docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)  --build-arg USER=$(whoami) -t openwrt_builder .
+docker exec -ti openwrt_builder /usr/bin/zsh
 ```
 
 Now the docker image is available. These steps only need to be done once.
@@ -31,7 +32,7 @@ Now the docker image is available. These steps only need to be done once.
 Create a build folder and link it into a new docker container:
 ```shell
 mkdir ~/mybuild
-docker run -v ~/mybuild:/home/user -it openwrt_builder /bin/bash
+docker run -v ${HOME}:${HOME} -it -d openwrt_builder /usr/bin/zsh
 ```
 
 In the container console, enter:
