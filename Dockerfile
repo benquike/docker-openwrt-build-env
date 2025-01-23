@@ -11,7 +11,7 @@ RUN apt-get update &&\
         flex gettext wget unzip xz-utils cmake \
         python3 python3-distutils-extra python3-setuptools swig rsync curl \
         libsnmp-dev liblzma-dev libpam0g-dev cpio rsync gcc-multilib zsh \
-	clang
+	clang gcc-multilib g++-multilib
 
 RUN    apt-get install -y software-properties-common lsb-release vim
 RUN    apt-get clean
